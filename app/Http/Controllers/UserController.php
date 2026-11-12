@@ -31,7 +31,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email',
+        'password'   => 'required|string|min:8|confirmed',
+    
+    ]);
+        // dd($validated);
+        User::create($validated);
+        return redirect()->route('user.index');
     }
 
     /**
@@ -47,7 +55,12 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
+        
+         $user= User::findOrFail($id);
+
+         return view("user.update",compact('user'));
+
     }
 
     /**
@@ -55,7 +68,14 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            ]);
+            $user= User::findOrFail($id);
+            $user->update($validated);
+                    return redirect()->route('user.index');
+ 
     }
 
     /**
@@ -63,6 +83,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user= User::findOrFail($id);
+        $user->delete();
+        return redirect()->route('user.index');
     }
 }

@@ -40,13 +40,14 @@
                      <td class="text-center">
                             <div class="d-flex justify-content-center gap-2">
                                 <!-- Update / Edit Button -->
-                                <a href="" class="btn btn-sm btn-outline-warning" title="Edit">
+                                <a href="{{route('update',$user->id)}}" class="btn btn-sm btn-outline-warning" title="Edit">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
 
                                 <!-- Delete Button (Form for DELETE method) -->
-                                <form action="" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
-                                    
+                                <form action="{{route('deleteUser',$user->id)}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                                    @csrf
+                                    @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
                                         <i class="bi bi-trash3-fill"></i>
                                     </button>
